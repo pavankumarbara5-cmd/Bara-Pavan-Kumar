@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking System</title>
+    <style>
+        /* Base Reset & Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #242333;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Movie Selection Layout */
+        .container {
+            background: #1d1c2b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .movie-container {
+            margin: 20px 0;
+        }
+        .movie-container select {
+            background-color: #fff;
+            border: 0;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-left: 10px;
+            padding: 6px 14px;
+            outline: none;
+        }
+
+        /* Legend Info */
+        .showcase {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            list-style-type: none;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .showcase li {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #777;
+        }
+        .showcase li small {
+            margin-left: 5px;
+        }
+
+        /* Seat Styling */
+        .seat {
+            background-color: #444451;
+            height: 20px;
+            width: 24px;
+            margin: 5px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        .seat.selected {
+            background-color: #6feaf6;
+        }
+        .seat.occupied {
+            background-color: #fff;
+            cursor: not-allowed;
+        }
+        .seat:not(.occupied):hover {
+            transform: scale(1.15);
+        }
+
+        /* Theater Grid Layout */
+        .cinema-screen {
+            background-color: #fff;
+            height: 10px;
+            width: 100%;
+            margin: 20px 0;
+            transform: rotateX(-45deg);
+            box-shadow: 0 3px 12px rgba(255, 255, 255, 0.7);
+        }
+        .screen-label {
+            font-size: 10px;
+            color: #666;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .seating-chart {
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+        .row {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Pricing Text & Action Buttons */
+        .summary-text {
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        .summary-text span {
+            color: #6feaf6;
+            font-weight: bold;
+        }
+        .btn-book {
+            background-color: #6feaf6;
+            color: #1d1c2b;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+        .btn-book:hover {
+            background-color: #55ceda;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cinema Ticket Booking</h2>
+
+    <!-- Dropdown to change ticket price -->
+    <div class="movie-container">
+        <label>Select a Movie:</label>
+        <select id="movie">
+            <option value="12">Avengers: Endgame ($12)</option>
+            <option value="10">Joker ($10)</option>
+            <option value="8">Toy Story 4 ($8)</option>
+            <option value="15">Dune: Part Two ($15)</option>
+        </select>
+    </div>
+
+    <!-- Status Reference Legend -->
+    <ul class="showcase">
+        <li>
+            <div class="seat"></div>
+            <small>Available</small>
+        </li>
+        <li>
+            <div class="seat selected"></div>
+            <small>Selected</small>
+        </li>
+        <li>
+            <div class="seat occupied"></div>
+            <small>Occupied</small>
+        </li>
+    </ul>
+
+    <!-- Layout of the Room -->
+    <div class="seating-chart">
+        <div class="cinema-screen"></div>
+        <div class="screen-label">Screen This Way</div>
+
+        <!-- Row 1 -->
+        <div class="row">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat occupied"></div>
+            <div class="seat occupied"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+        <!-- Row 2 -->
+        <div class="row">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat occupied"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat occupied"></div>
+            <div class="seat"></div>
+        </div>
+        <!-- Row 3 -->
+        <div class="row">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+        <!-- Row 4 -->
+        <div class="row">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat occupied"></div>
+            <div class="seat occupied"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+    </div>
+
+    <!-- Real-time calculation summary -->
+    <p class="summary-text">
+        You have selected <span id="count">0</span> seats for a total price of $<span id="total">0</span>
+    </p>
+
+    <button class="btn-book" id="bookBtn">Confirm Reservation</button>
+</div>
+
+<script>
+    // Component Selectors
+    const chart = document.querySelector('.seating-chart');
+    const seats = document.querySelectorAll('.row .seat:not(.occupied)');
+    const count = document.getElementById('count');
+    const total = document.getElementById('total');
+    const movieSelect = document.getElementById('movie');
+    const bookBtn = document.getElementById('bookBtn');
+
+    let ticketPrice = +movieSelect.value;
+
+    // Calculation Engine
+    function updateSelectedCount() {
+        const selectedSeats = document.querySelectorAll('.row .seat.selected');
+        const selectedSeatsCount = selectedSeats.length;
+        
+        count.innerText = selectedSeatsCount;
+        total.innerText = selectedSeatsCount * ticketPrice;
+    }
+
+    // Movie selection change event
+    movieSelect.addEventListener('change', (e) => {
+        ticketPrice = +e.target.value;
+        updateSelectedCount();
+    });
+
+    // Seat click logic via event delegation
+    chart.addEventListener('click', (e) => {
+        if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
+            e.target.classList.toggle('selected');
+            updateSelectedCount();
+        }
+    });
+
+    // Final checkout trigger
+    bookBtn.addEventListener('click', () => {
+        const selectedSeats = document.querySelectorAll('.row .seat.selected');
+        if (selectedSeats.length === 0) {
+            alert('Please choose at least one seat to proceed.');
+            return;
+        }
+        
+        // Finalize transaction state visually
+        selectedSeats.forEach(seat => {
+            seat.classList.remove('selected');
+            seat.classList.add('occupied');
+        });
+        
+        alert('Booking successful! Your tickets are confirmed.');
+        updateSelectedCount();
+    });
+</script>
+
+</body>
+</html>
